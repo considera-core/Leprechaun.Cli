@@ -30,3 +30,15 @@ unity-workspace,app
 unity-workspace,git
 unity-workspace,ide
 unity-workspace,unity
+extensions-project,ai
+extensions-project,git
+extensions-project,ide
+extensions-project,npm
+extensions-demo,ai
+extensions-demo,app
+extensions-demo,ide
+extensions-demo,npm
+extensions-lib,ai
+extensions-lib,app
+extensions-lib,npm
+extensions-lib,ide

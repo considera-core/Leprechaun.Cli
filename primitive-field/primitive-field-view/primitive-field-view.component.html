@@ -1,0 +1,104 @@
+@let Id = idSuffix();
+@let Description = description();
+@let Label = label();
+@let Code = code();
+@let Italic = italic();
+@let ShowEmpty = showEmpty();
+@let Loading = loading();
+@let Strong = strong();
+@let Density = density();
+@let FieldType = fieldType();
+@let Value = value();
+@let DisplayValue = _displayValue();
+@let FormValue = _formValue();
+@let IsDenseNow = _isDenseNow();
+@let IsEmptyNow = _isEmptyNow();
+
+@switch (FieldType) {
+  @case (PrimitiveFieldTypeEnum.CheckboxToggle) {
+    <forge-checkbox
+      disabled class="global-width-full" [id]="Id + '-checkbox'" [value]="FormValue" [checked]="Value"
+      [dense]="IsDenseNow"
+    >
+      {{ Label }}
+      @if (Loading) {
+        <forge-icon [id]="Id + '-checkbox-loading-icon'" class="checkbox-progress">
+          <forge-circular-progress [id]="Id + '-checkbox-loading-icon-progress'" indeterminate />
+        </forge-icon>
+      }
+      @if (Description) {
+        <forge-tooltip placement="bottom">
+          <span>{{ Description }}</span>
+        </forge-tooltip>
+      }
+    </forge-checkbox>
+  }
+  @case (PrimitiveFieldTypeEnum.SwitchToggle) {
+    <forge-switch
+      disabled [id]="Id + '-switch'" class="global-width-full" [value]="FormValue" [checked]="Value"
+      [dense]="IsDenseNow"
+    >
+      {{ Label }}
+      @if (Loading) {
+        <forge-icon [id]="Id + '-switch-loading-icon'" class="checkbox-progress">
+          <forge-linear-progress [id]="Id + '-switch-loading-icon-progress'" indeterminate />
+        </forge-icon>
+      }
+      @if (Description) {
+        <forge-tooltip placement="bottom">
+          <span>{{ Description }}</span>
+        </forge-tooltip>
+      }
+    </forge-switch>
+  }
+  @default {
+    @if (Label) {
+      <forge-label-value class="global-width-full" [dense]="IsDenseNow" [empty]="IsEmptyNow">
+        @if (FieldType === PrimitiveFieldTypeEnum.CurrencyText) {
+          <forge-icon slot="icon" class="global-flex-col global-center-x" name="attach_money" />
+        }
+        <span slot="label">{{ Label }}</span>
+        @if (Loading) {
+          <forge-skeleton slot="value" text />
+        } @else {
+          <span slot="value" [style]="(IsEmptyNow && ShowEmpty || !IsEmptyNow) ? '' : 'visibility: hidden'">
+            @if (Code) {
+              <code>{{ DisplayValue }}</code>
+            } @else {
+              {{ DisplayValue }}
+            }
+          </span>
+        }
+        @if (Description) {
+          <forge-tooltip placement="bottom">
+            <span>{{ Description }}</span>
+          </forge-tooltip>
+        }
+      </forge-label-value>
+    } @else {
+      <div class="global-width-full global-flex-row global-center-y">
+        @if (FieldType === PrimitiveFieldTypeEnum.CurrencyText) {
+          <forge-icon style="margin-left: -0.25rem" class="global-flex-col global-center-x" name="attach_money" />
+        }
+        <div class="global-width-full">
+          @if (Loading) {
+            <forge-skeleton class="global-margin-none" text />
+          } @else {
+            <span slot="value" [style]="(IsEmptyNow && ShowEmpty || !IsEmptyNow) ? '' : 'visibility: hidden'">
+              @if (Code) {
+                <code>{{ DisplayValue }}</code>
+              } @else {
+                {{ DisplayValue }}
+              }
+            </span>
+          }
+        </div>
+        @if (Description) {
+          <forge-tooltip placement="bottom">
+            <span>{{ Description }}</span>
+          </forge-tooltip>
+        }
+      </div>
+    }
+  }
+}

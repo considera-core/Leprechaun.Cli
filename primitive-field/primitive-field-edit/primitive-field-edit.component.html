@@ -1,0 +1,99 @@
+@let Id = idSuffix();
+@let Description = description();
+@let Label = label();
+@let Disabled = disabled();
+@let Invalid = invalid();
+@let Loading = loading();
+@let Required = required();
+@let Density = density();
+@let FieldType = fieldType();
+@let SelectOptions = selectOptions();
+@let Value = value();
+@let FormValue = _formValue();
+@let IsDenseNow = _isDenseNow();
+@let IsDisabledNow = _isDisabledNow();
+@let LabelPosition = _labelPosition();
+@let LabelAlignment = _labelAlignment();
+
+@switch (FieldType) {
+  @case (PrimitiveFieldTypeEnum.StringText) {
+    <forge-text-field
+      [invalid]="Invalid" [dense]="IsDenseNow" [density]="Density" [required]="Required"
+      [labelPosition]="LabelPosition" [labelAlignment]="LabelAlignment"
+    >
+      @if (IsDenseNow) {
+        <forge-icon slot="start" class="global-field-icon-dense global-flex-col global-center-x" name="text_fields" />
+      } @else {
+        <forge-icon slot="start" class="global-flex-col global-bottom-x" name="text_fields" />
+      }
+      <label for="text-edit">{{ Label }}</label>
+      <input
+        id="text-edit" type="text"
+        [value]="FormValue" [disabled]="IsDisabledNow"
+        (input)="_onChange($event)"
+      >
+    </forge-text-field>
+  }
+  @case (PrimitiveFieldTypeEnum.NumberText) {
+    <forge-text-field
+      [invalid]="Invalid" [dense]="IsDenseNow" [density]="Density" [required]="Required"
+      [labelPosition]="LabelPosition" [labelAlignment]="LabelAlignment"
+    >
+      @if (IsDenseNow) {
+        <forge-icon
+          slot="start" class="global-field-icon-dense global-flex-col global-center-x" name="exposure_plus_1"
+        />
+      } @else {
+        <forge-icon slot="start" class="global-flex-col global-bottom-x" name="exposure_plus_1" />
+      }
+      <label for="text-edit">{{ Label }}</label>
+      <input
+        id="text-edit" type="number" step="1"
+        [value]="FormValue" [disabled]="IsDisabledNow"
+        (input)="_onChange($event)"
+      >
+    </forge-text-field>
+  }
+  @case (PrimitiveFieldTypeEnum.CurrencyText) {
+    <forge-text-field
+      [invalid]="Invalid" [dense]="IsDenseNow" [density]="Density" [required]="Required"
+      [labelPosition]="LabelPosition" [labelAlignment]="LabelAlignment"
+    >
+      @if (IsDenseNow) {
+        <forge-icon slot="start" class="global-field-icon-dense global-flex-col global-center-x" name="attach_money" />
+      } @else {
+        <forge-icon slot="start" class="global-flex-col global-bottom-x" name="attach_money" />
+      }
+      <label for="text-edit">{{ Label }}</label>
+      <input
+        id="text-edit" type="number" step="0.01"
+        [value]="FormValue" [disabled]="IsDisabledNow"
+        (input)="_onChange($event)"
+      >
+    </forge-text-field>
+  }
+  @case (PrimitiveFieldTypeEnum.Select) {
+    <forge-select
+      [invalid]="Invalid" [label]="Label" [value]="FormValue" [options]="SelectOptions"
+      [disabled]="IsDisabledNow" [dense]="IsDenseNow" [density]="Density" [required]="Required"
+      [labelPosition]="LabelPosition" [labelAlignment]="LabelAlignment"
+      (change)="_onSelect($event)"
+    />
+  }
+  @case (PrimitiveFieldTypeEnum.CheckboxToggle) {
+    <forge-checkbox
+      [value]="FormValue" [checked]="Value" [disabled]="IsDisabledNow" [dense]="IsDenseNow" [required]="Required"
+      (change)="_onCheckboxChange($event)"
+    >
+      {{ Label }}
+    </forge-checkbox>
+  }
+  @case (PrimitiveFieldTypeEnum.SwitchToggle) {
+    <forge-switch
+      [value]="FormValue" [checked]="Value" [disabled]="IsDisabledNow" [dense]="IsDenseNow" [required]="Required"
+      (change)="_onSwitchChange($event)"
+    >
+      {{ Label }}
+    </forge-switch>
+  }
+}

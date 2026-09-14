@@ -1,0 +1,349 @@
+@use '@tylertech/forge/dist/forge-dark';
+@use '@tylertech/forge/sass/theme/theme-dark';
+@use '@tylertech/forge/dist/typography/forge-typography';
+
+:host {
+  // @include global-container-components;
+}
+
+::ng-deep {
+  @import '@tylertech/forge/dist/table/forge-table';
+}
+
+html, head, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+
+  ::-webkit-scrollbar-track {
+    background: red !important;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: red !important;
+  }
+}
+
+// Forge component overrides for content hosted inside an island. Dialogs opened through DialogService are
+// appended to <body>, outside of any .global-island, so .global-dialog applies these directly as well.
+@mixin global-island-components {
+  forge-drawer {
+    border-radius: 0.5rem;
+    border: solid 0.0625rem var(--forge-theme-outline);
+    --forge-drawer-width: 20rem;
+    --forge-drawer-border-width: 0;
+  }
+
+  forge-toolbar {
+    background: var(--forge-theme-surface);
+    border-radius: 0.5rem;
+    border: solid 0.0625rem var(--forge-theme-outline);
+    --forge-toolbar-border-height: 0;
+    --forge-toolbar-padding: 1rem;
+    --forge-toolbar-shape: 0.5rem;
+    --forge-toolbar-start-end-shape: 0.5rem;
+    --forge-toolbar-start-start-shape: 0.5rem;
+    --forge-toolbar-end-start-shape: 0.5rem;
+    --forge-toolbar-end-end-shape: 0.5rem;
+    --forge-toolbar-divider-width: 0;
+  }
+
+  forge-toolbar[no-border] {
+    border-radius: 0.5rem;
+    --forge-toolbar-border-height: 0;
+    --forge-toolbar-padding: 1rem;
+    --forge-toolbar-shape: 0.5rem;
+    --forge-toolbar-start-end-shape: 0.5rem;
+    --forge-toolbar-start-start-shape: 0.5rem;
+    --forge-toolbar-end-start-shape: 0.5rem;
+    --forge-toolbar-end-end-shape: 0.5rem;
+    --forge-toolbar-divider-width: 0;
+
+    &[inverted] {
+      border: 0;
+      border-top: solid 0.0625rem var(--forge-theme-outline);
+    }
+
+    &:not([inverted]) {
+      border-radius: 0.5rem;
+      border: 0;
+      border-bottom: solid 0.0625rem var(--forge-theme-outline);
+    }
+
+    &[no-divider] {
+      border-radius: 0.5rem;
+      border: 0;
+    }
+  }
+
+  forge-toolbar[no-divider] {
+    border-radius: 0.5rem;
+    border: 0;
+    --forge-toolbar-border-height: 0;
+    --forge-toolbar-padding: 1rem;
+    --forge-toolbar-shape: 0.5rem;
+    --forge-toolbar-start-end-shape: 0.5rem;
+    --forge-toolbar-start-start-shape: 0.5rem;
+    --forge-toolbar-end-start-shape: 0.5rem;
+    --forge-toolbar-end-end-shape: 0.5rem;
+    --forge-toolbar-divider-width: 0;
+  }
+
+  forge-toolbar[dense] {
+    --forge-toolbar-padding: 0.5rem;
+    --forge-toolbar-padding-block: 0.5rem;
+  }
+
+  forge-toolbar[tab-bar] {
+    border-radius: 0.5rem 0.5rem 0 0 !important;
+  }
+
+  forge-tab-bar {
+    background: var(--forge-theme-surface);
+    border-radius: 0.5rem;
+    border: solid 0.0625rem var(--forge-theme-outline);
+    overflow: hidden;
+    --forge-tab-bar-border-height: 0;
+    --forge-tab-bar-padding: 1rem;
+    --forge-tab-bar-shape: 0.5rem;
+    --forge-tab-bar-start-end-shape: 0.5rem;
+    --forge-tab-bar-start-start-shape: 0.5rem;
+    --forge-tab-bar-end-start-shape: 0.5rem;
+    --forge-tab-bar-end-end-shape: 0.5rem;
+    --forge-tab-bar-divider-thickness: 0;
+  }
+
+  forge-tab-bar[no-border] {
+    border-radius: 0.5rem;
+    --forge-tab-bar-divider-thickness: 0;
+
+    &[inverted] {
+      border: 0;
+      border-top: solid 0.0625rem var(--forge-theme-outline);
+    }
+
+    &:not([inverted]) {
+      border-radius: 0.5rem;
+      border: 0;
+      border-bottom: solid 0.0625rem var(--forge-theme-outline);
+    }
+
+    &[no-divider] {
+      border-radius: 0.5rem;
+      border: 0;
+    }
+  }
+
+  forge-tab-bar[no-divider] {
+    border-radius: 0.5rem;
+    border: 0;
+    --forge-tab-bar-divider-thickness: 0;
+  }
+
+  forge-tab-bar[header] {
+    border-radius: 0 0 0.5rem 0.5rem !important;
+  }
+
+  forge-card {
+    border-radius: 0.5rem;
+    border: solid 0.0625rem var(--forge-theme-outline);
+    --forge-card-outline-width: 0;
+    --forge-card-shape: 0.5rem;
+  }
+
+  .global-island-top {
+    padding-bottom: 0.5rem;
+  }
+  .global-island-right {
+    padding-left: 0.5rem;
+  }
+  .global-island-bottom {
+    padding-top: 0.5rem;
+  }
+  .global-island-left {
+    padding-right: 0.5rem;
+  }
+  .global-island-top-dense {
+    padding-bottom: 0.25rem;
+  }
+  .global-island-right-dense {
+    padding-left: 0.25rem;
+  }
+  .global-island-bottom-dense {
+    padding-top: 0.25rem;
+  }
+  .global-island-left-dense {
+    padding-right: 0.25rem;
+  }
+  .global-island-center-x {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .global-island-center-y {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  .global-island-center-x-dense {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+  .global-island-center-y-dense {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+  .global-island-border {
+    border-radius: 0.5rem;
+    border: solid 0.0625rem var(--forge-theme-outline);
+  }
+}
+
+@mixin global-container-components {
+  .global-island {
+    padding: 1rem;
+    @include global-island-components;
+  }
+
+  .global-height-max-full {
+    max-height: 100%;
+  }
+  .global-height-max-half {
+    max-height: 50%;
+  }
+
+  .global-gap {
+    gap: 1rem;
+  }
+  .global-gap-dense {
+    gap: 0.5rem;
+  }
+  .global-padding {
+    padding: 1rem
+  }
+  .global-padding-dense {
+    padding: 0.5rem
+  }
+
+  .global-dense {
+    .global-gap {
+      gap: 0.5rem;
+    }
+
+    .global-gap-dense {
+      gap: 0.25rem;
+    }
+
+    .global-padding {
+      padding: 0.5rem
+    }
+
+    .global-padding-dense {
+      padding: 0.25rem
+    }
+  }
+
+  .global-flex-row {
+    display: flex;
+    flex-direction: row;
+  }
+  .global-flex-col {
+    display: flex;
+    flex-direction: column;
+  }
+  .global-center-x {
+    justify-content: center;
+  }
+  .global-center-y {
+    align-items: center;
+  }
+  .global-width-full {
+    width: 100%;
+  }
+  .global-height-full {
+    height: 100%;
+  }
+
+  .global-margin-right {
+    margin-right: 1rem
+  }
+  .global-margin-left {
+    margin-left: 1rem
+  }
+  .global-margin-right-dense {
+    margin-right: 0.5rem
+  }
+  .global-margin-left-dense {
+    margin-left: 0.5rem
+  }
+
+  .global-island-left {
+    padding-right: 0.5rem;
+  }
+  .global-island-right {
+    padding-left: 0.5rem;
+  }
+  .global-island-left-dense {
+    padding-right: 0.25rem;
+  }
+  .global-island-right-dense {
+    padding-left: 0.25rem;
+  }
+  .global-island-top {
+    padding-bottom: 0.5rem;
+  }
+  .global-island-top-dense {
+    padding-bottom: 0.25rem;
+  }
+  .global-island-bottom {
+    padding-top: 0.5rem;
+  }
+  .global-island-bottom-dense {
+    padding-top: 0.25rem;
+  }
+  .global-island-center-y {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  .global-island-center-y-dense {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+  .global-island-center-x {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .global-island-center-x-dense {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+  .global-background-shaded-primary {
+    background: var(--forge-theme-primary-container-minimum);
+    --forge-card-background: var(--forge-theme-primary-container-minimum);
+  }
+  .global-background-shaded-secondary {
+    background: var(--forge-theme-secondary-container-minimum);
+    --forge-card-background: var(--forge-theme-secondary-container-minimum);
+  }
+  .global-background-surface {
+    background: var(--forge-theme-surface);
+    --forge-card-background: var(--forge-theme-surface);
+  }
+
+  .global-icon-dense {
+    font-size: 1rem;
+    --forge-icon-size: 1rem;
+  }
+
+}
+
+:root {
+  @include theme-dark.theme-properties;
+  @include global-container-components;
+}
+
+// Pass as `dialogClass: 'global-dialog'` to DialogService.open(). The dialog acts as its own island root; the
+// utility classes above are already global through :root, so only the island overrides are needed here.
+.global-dialog {
+  --forge-dialog-background: var(--forge-theme-surface-dim);
+  @include global-island-components;
+}

@@ -19,3 +19,6 @@ proxy,Proxy,caddy,BatchProxy,Misc,Proxy Store for ConsideraWeb,ConsideraWeb.Prox
 terraform,Terraform,terraform,Terraform,Server,Terraform for ConsideraWeb,ConsideraWeb.Terraform,master,false
 unity-sdk,UnitySdk,dotnet,UnitySdk,Server,Unity SDK for ConsideraWeb,ConsideraWeb.UnitySdk,master,false
 unity-workspace,UnityWorkspace,unity,UnityWorkspace,Client,Unity Workspace for ConsideraWeb,ConsideraWeb.UnityWorkspace,master,false
+extensions-project,Angular Extensions,ng,AngularExtensions,Client,@consideracore/angular-extensions Angular Manifold,ConsideraWeb.Extensions,master,false
+extensions-demo,Angular Extensions Demo Project,ng,AngularExtensions - Demo,Client,@consideracore/angular-extensions Angular Library,ConsideraWeb.Extensions/projects/demo,,false
+extensions-lib,Angular Extensions Library,ng,AngularExtensions - Library,Client,@consideracore/angular-extensions Angular Library,ConsideraWeb.Extensions/projects/angular-extensions,,false
