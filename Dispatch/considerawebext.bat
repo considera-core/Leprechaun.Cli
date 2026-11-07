@@ -1,2 +1,0 @@
-wt -w 0 powershell -NoExit -Command "cd C:\Environments\Considera\Dev\ConsideraWeb\ConsideraWeb.Extensions\; npm run serve:demo"
-wt -w 0 powershell -NoExit -Command "cd C:\Environments\Considera\Dev\ConsideraWeb\ConsideraWeb.Extensions\; npm run serve:angular-extensions"

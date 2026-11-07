@@ -40,7 +40,7 @@ IF /I "%Input_Scope%"=="global" (
     REM CALL FnEtcLogDebug %~n0 "[Organization] Dispatching..."
     FOR %%S IN (!Output_Data_Suites!) DO (
         REM CALL FnEtcLogDebug %~n0 "[Organization] Dispatching suite..."
-        CALL FnEtcDispatch2 suite "%Input_OrgId%" "%%S" "%Input_Module%" "%Input_Action%" "%Input_Arg%" %Input_Args%
+        CALL FnEtcDispatch2 suite "%Input_OrgId%" "%%S" "%Input_Module%" "%Input_Action%" "%Input_Arg%" "%Input_Args%"
         IF ERRORLEVEL 1 CALL FnEtcLogError %~n0 "[Organization] Dispatch failed: FnEtcDispatch2 suite %Input_OrgId% %%S %Input_Arg% %Input_Args%" & EXIT /B 1
         REM CALL FnEtcLogDebug %~n0 "[Organization] Dispatched suite: %%S"
     )
@@ -55,6 +55,7 @@ IF /I "%Input_Scope%"=="global" (
     SET "Input_Module=%~4"
     SET "Input_Action=%~5"
     SET "Input_Arg=%~6"
+    SET "Input_Args=%~7"
 
     IF NOT DEFINED Input_OrgId CALL FnEtcLogError %~n0 "[Suite] Missing required argument <OrgId>" & EXIT /B 1
     IF NOT DEFINED Input_SuiteId CALL FnEtcLogError %~n0 "[Suite] Missing required argument <SuiteId>" & EXIT /B 1
@@ -70,7 +71,7 @@ IF /I "%Input_Scope%"=="global" (
     REM CALL FnEtcLogDebug %~n0 "[Suite] Dispatching projects... !Output_Data_Projects! !Output_Cached_Projects!"
     FOR %%P IN (!Output_Data_Projects!) DO (
         REM CALL FnEtcLogDebug %~n0 "[Suite] Dispatching project..."
-        CALL FnEtcDispatch2 project "!Input_OrgId!" "!Input_SuiteId!" "%%P" "!Input_Module!" "!Input_Action!" "!Input_Arg!"
+        CALL FnEtcDispatch2 project "!Input_OrgId!" "!Input_SuiteId!" "%%P" "!Input_Module!" "!Input_Action!" "!Input_Arg!" "!Input_Args!"
         IF ERRORLEVEL 1 CALL FnEtcLogError %~n0 "[Suite] Dispatch failed: FnEtcDispatch2 project !Input_OrgId! !Input_SuiteId! %%P !Input_Module! !Input_Action! !Input_Arg!" & EXIT /B 1
         REM CALL FnEtcLogDebug %~n0 "[Suite] Dispatched project: %%P"
     )
@@ -96,7 +97,9 @@ IF /I "%Input_Scope%"=="global" (
     IF NOT DEFINED Input_Action CALL FnEtcLogError %~n0 "[Project] Missing required argument ^<ActionId^>" & EXIT /B 1
 
     REM CALL FnEtcLogDebug %~n0 "[Project] Dispatching project..."
-    CALL Fn!Input_Module!!Input_Action! "!Input_OrgId!" "!Input_SuiteId!" "!Input_ProjectId!" "!Input_Arg!" "!Input_Args!"
+    CALL FnEtcLogDebug %~n0 "[Project] Invoking command: Fn!Input_Module!!Input_Action! !Input_OrgId! !Input_SuiteId! !Input_ProjectId! !Input_Arg! !Input_Args!"
+    REM Arg and Args are expanded unquoted so a flag string like "--deps --here" is split back into separate tokens
+    CALL Fn!Input_Module!!Input_Action! "!Input_OrgId!" "!Input_SuiteId!" "!Input_ProjectId!" !Input_Arg! !Input_Args!
     IF ERRORLEVEL 1 CALL FnEtcLogError %~n0 "[Project] Dispatch failed: Fn!Input_Module!!Input_Action! !Input_OrgId! !Input_SuiteId! !Input_ProjectId! !Input_Arg! !Input_Args!" & EXIT /B 1
     REM CALL FnEtcLogDebug %~n0 "[Project] Dispatched project: !Input_ProjectId!"
 ) ELSE IF /I "%Input_Scope%"=="app" (
@@ -123,7 +126,7 @@ IF /I "%Input_Scope%"=="global" (
     REM CALL FnEtcLogDebug %~n0 "[App] Dispatching projects..."
     FOR %%P IN (!Output_Data_ProjectAppDefinitionsProjects!) DO (
         REM CALL FnEtcLogDebug %~n0 "[App] Dispatching project..."
-        CALL FnEtcDispatch2 project "!Input_OrgId!" "!Input_SuiteId!" "%%P" "!Input_Module!" "!Input_Action!" "!Input_Arg!" "!Input_Args!"
+        CALL FnEtcDispatch2 project "!Input_OrgId!" "!Input_SuiteId!" "%%P" "!Input_Module!" "!Input_Action!" "!Input_Args!"
         IF ERRORLEVEL 1 CALL FnEtcLogError %~n0 "[App] Dispatch failed: FnEtcDispatch2 project !Input_OrgId! !Input_SuiteId! %%P !Input_Module! !Input_Action! !Input_Arg! !Input_Args!" & EXIT /B 1
         REM CALL FnEtcLogDebug %~n0 "[App] Dispatched project: %%P"
     )

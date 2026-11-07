@@ -39,7 +39,7 @@ SET "Output_Data_Projects="
 SET "Output_Data_ProjectsInternal="
 SET "Output_Data_ProjectsExternal="
 SET "Output_Data_ProjectsCount=0"
-SET "Local_DataPath=%~dp0..\..\..\..\Data\Organizations\%Output_Resolved_OrgIdentifier%\Suites\%Output_Resolved_SuiteIdentifier%\Projects.csv"
+SET "Local_DataPath=%~dp0..\..\..\..\Data\Organizations\%Output_Resolved_OrgIdentifier%\%Output_Resolved_SuiteIdentifier%\Projects.csv"
 FOR /F "usebackq skip=1 tokens=1-9 delims=, eol=#" %%a IN ("%Local_DataPath%") DO (
     IF DEFINED Output_Data_Projects CALL SET "Output_Data_Projects=%%Output_Data_Projects%% %%a"
     IF NOT DEFINED Output_Data_Projects SET "Output_Data_Projects=%%a"

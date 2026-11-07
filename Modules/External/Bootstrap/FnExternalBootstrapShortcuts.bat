@@ -80,7 +80,6 @@ FOR /R "%SC_ROOT%\Dispatch" %%F IN (*.bat) DO CALL :EMIT "%%~fF"
 FOR /R "%SC_ROOT%\Modules"  %%F IN (*.bat) DO CALL :EMIT "%%~fF"
 
 ECHO LeprechaunCLI:FnExternalBootstrapShortcuts[I]: wrote %SC_WRITTEN% shortcut^(s^) to %SC_BIN%
-ECHO LeprechaunCLI:FnExternalBootstrapShortcuts[I]: add %SC_BIN% to PATH
 EXIT /B %SC_RC%
 
 :: SWEEP <file> -- delete one Bin entry if it is a forwarder we generated.
@@ -101,6 +100,9 @@ EXIT /B %SC_RC%
     SET "SC_TARGET=%~1"
     SET "SC_NAME=%~n1"
     SET "SC_SHIM=%SC_BIN%\%SC_NAME%.bat"
+
+    :: If file starts with _, then ignore it
+    IF "%SC_NAME:~0,1%"=="_" EXIT /B 0
 
     :: Two scripts claiming one namespace would make the winner depend on scan
     :: order, so refuse both rather than silently shadowing one.

@@ -45,7 +45,7 @@ IF ERRORLEVEL 1 (
     
     IF DEFINED Input_Arg (
         CALL FnEtcLogDebug %~n0 "[Module] Resolving flags..."
-        ::CALL FnEtcFlags -p "!Input_OrgId!" "!Input_Module!" "!Input_Action!" "!Input_Arg!" -a %*
+        CALL FnEtcFlags -p "!Input_OrgId!" "!Input_Module!" "!Input_Action!" "!Input_Arg!" -a %*
         CALL FnEtcLogDebug %~n0 "[Module] Resolved flags (Output_FnEtcFlags_Args: !Output_FnEtcFlags_Args!)"
         CALL FnEtcLogDebug %~n0 "[Module] Resolved flags (Output_FnEtcFlags_Flags: !Output_FnEtcFlags_Flags!)"
 
@@ -55,7 +55,7 @@ IF ERRORLEVEL 1 (
         CALL FnEtcLogDebug %~n0 "[Module] Dispatched via organization"
     ) ELSE (
         CALL FnEtcLogDebug %~n0 "[Module] Resolving flags..."
-        ::CALL FnEtcFlags -p "!Input_OrgId!" "!Input_Module!" "!Input_Action!" -a %*
+        CALL FnEtcFlags -p "!Input_OrgId!" "!Input_Module!" "!Input_Action!" -a %*
         CALL FnEtcLogDebug %~n0 "[Module] Resolved flags (Output_FnEtcFlags_Args: !Output_FnEtcFlags_Args!)"
         CALL FnEtcLogDebug %~n0 "[Module] Resolved flags (Output_FnEtcFlags_Flags: !Output_FnEtcFlags_Flags!)"
 
@@ -78,16 +78,20 @@ IF ERRORLEVEL 1 (
     IF NOT DEFINED Input_Action CALL FnEtcLogError %~n0 "[Suite] Missing required argument <ActionId>" & EXIT /B 1
 
     IF DEFINED Input_Arg (
+        REM Everything that is not org/suite/module/action/arg is a flag or extra arg
+        CALL FnEtcFlags -p "!Input_OrgId!" "!Input_SuiteId!" "!Input_Module!" "!Input_Action!" "!Input_Arg!" -a %*
+        CALL FnEtcLogDebug %~n0 "[Suite] Resolved flags (Output_FnEtcFlags_Args: !Output_FnEtcFlags_Args!)"
         CALL FnEtcLogDebug %~n0 "[Suite] Checking if argument is a suite app..."
         CALL FnEtcResolveSuiteApp "!Input_OrgId!" "!Input_SuiteId!" "!Input_Arg!"
 
         IF NOT DEFINED Output_Resolved_SuiteAppId (
             CALL FnEtcLogDebug %~n0 "[Suite] Argument is not a suite app, resolving as project..."
             CALL FnEtcResolveProject "!Input_OrgId!" "!Input_SuiteId!" "!Input_Arg!"
+            CALL FnEtcLogDebug %~n0 "[Suite] Resolved project: !Output_Resolved_ProjectId!"
 
             REM Input_Arg is Output_Resolved_ProjectId if Output_Resolved_ProjectId is defined
             IF NOT DEFINED Output_Resolved_ProjectId (
-                CALL FnEtcDispatch2 suite "!Input_OrgId!" "!Input_SuiteId!" "!Input_Module!" "!Input_Action!" "!Input_Arg!"
+                CALL FnEtcDispatch2 suite "!Input_OrgId!" "!Input_SuiteId!" "!Input_Module!" "!Input_Action!" "!Input_Arg!" "!Output_FnEtcFlags_Args!"
                 IF ERRORLEVEL 1 CALL FnEtcLogError %~n0 "[Suite] Dispatch via suite failed" & EXIT /B 1
             ) ELSE (
                 CALL FnEtcDispatch2 project "!Input_OrgId!" "!Input_SuiteId!" "!Output_Resolved_ProjectId!" "!Input_Module!" "!Input_Action!" "!Output_FnEtcFlags_Args!"

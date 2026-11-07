@@ -70,7 +70,6 @@ CALL FnEtcLogDebug %~n0 "LOOP END"
 IF NOT "!Local_Mode!"=="AllArgs" SET "Local_Error=Missing required argument -a <Arg[]>"
 CALL FnEtcLogDebug %~n0 "SET Local_Error: !Local_Error!"
 
-
 :: Local_Args becomes the list of arguments that are not known parameters
 :: (basically remove known parameters from Local_AllArgs).
 :: -- Matching is a whole token, not a substring, so removing "considera" no longer
