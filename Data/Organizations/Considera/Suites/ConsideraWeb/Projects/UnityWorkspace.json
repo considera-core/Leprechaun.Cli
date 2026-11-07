@@ -1,0 +1,19 @@
+{
+    "GitConfig": {
+        "HomeBranch": "master",
+        "ProtectedBranches": [
+            "master"
+        ]
+    },
+    "IdeConfig": {
+        "PreferredIde": "rider",
+        "PathCode": ".",
+        "PathRider": "."
+    },
+    "UnityConfig": {
+        "PathProject": ".",
+        "CommandOpen": "Unity.exe -projectPath .",
+        "CommandBuild": "Unity.exe -quit -batchmode -projectPath . -executeMethod BuildScript.Build",
+        "CommandTest": "Unity.exe -runTests -batchmode -projectPath ."
+    }
+}

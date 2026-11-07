@@ -1,0 +1,32 @@
+{
+    "AppConfig": {
+        "Environments": {
+            "Dev": {
+                "Url": "https://local.considera.dev/web"
+            },
+            "Prod": {
+                "Url": "https://app.considera.dev/web"
+            }
+        }
+    },
+    "GitConfig": {
+        "HomeBranch": "master",
+        "ProtectedBranches": [
+            "master"
+        ]
+    },
+    "IdeConfig": {
+        "PreferredIde": "webstorm",
+        "PathCode": ".",
+        "PathWebstorm": "."
+    },
+    "NgConfig": {
+        "WorkspaceProject": "web-portal",
+        "Path": "projects/web-portal",
+        "CommandInstall": "npm install",
+        "CommandServe": "npm run serve:web",
+        "CommandBuild": "npm run build:web",
+        "CommandTest": "npm run test:web",
+        "CommandLint": "npm run lint:web"
+    }
+}

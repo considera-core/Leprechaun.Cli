@@ -1,0 +1,22 @@
+{
+    "AwsConfig": {
+        "Profile": "considera-dev"
+    },
+    "GitConfig": {
+        "HomeBranch": "master",
+        "ProtectedBranches": [
+            "master"
+        ]
+    },
+    "IdeConfig": {
+        "PreferredIde": "code",
+        "PathCode": "."
+    },
+    "TerraformConfig": {
+        "PathRoot": ".",
+        "PathVarFile": "envs/dev.tfvars",
+        "PathBackendConfig": "envs/dev.backend.hcl",
+        "Workspace": "dev",
+        "AutoApprove": false
+    }
+}

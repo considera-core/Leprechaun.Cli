@@ -1,0 +1,32 @@
+{
+    "AppConfig": {
+        "Environments": {
+            "Dev": {
+                "Url": "https://local.considera.dev/games"
+            },
+            "Prod": {
+                "Url": "https://app.considera.dev/games"
+            }
+        }
+    },
+    "GitConfig": {
+        "HomeBranch": "master",
+        "ProtectedBranches": [
+            "master"
+        ]
+    },
+    "IdeConfig": {
+        "PreferredIde": "webstorm",
+        "PathCode": ".",
+        "PathWebstorm": "."
+    },
+    "NgConfig": {
+        "WorkspaceProject": "games-portal",
+        "Path": "projects/games-portal",
+        "CommandInstall": "npm install",
+        "CommandServe": "npm run serve:games",
+        "CommandBuild": "npm run build:games",
+        "CommandTest": "npm run test:games",
+        "CommandLint": "npm run lint:games"
+    }
+}

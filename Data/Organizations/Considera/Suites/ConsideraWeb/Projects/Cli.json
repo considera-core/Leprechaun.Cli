@@ -1,0 +1,15 @@
+{
+    "BatchConfig": {
+        "CommandRun": "cli.bat"
+    },
+    "GitConfig": {
+        "HomeBranch": "master",
+        "ProtectedBranches": [
+            "master"
+        ]
+    },
+    "IdeConfig": {
+        "PreferredIde": "code",
+        "PathCode": "."
+    }
+}
