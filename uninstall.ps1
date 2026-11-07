@@ -4,22 +4,22 @@ function RemoveSymbolicLink {
     try {
         Remove-Item -Path $linkPath -Force -Recurse -ErrorAction SilentlyContinue
     } catch {
-        echo "Failed to remove $linkPath"
+        Write-Host "Failed to remove $linkPath"
     }
     if (Test-Path -Path $linkPath -PathType Container) {
-        echo "$linkPath still exists."
+        Write-Host "$linkPath still exists."
     } else {
-        echo "$linkPath deleted."
+        Write-Host "$linkPath deleted."
     }
 }
 
-echo "Starting Lazy Polyrepo Express Tools uninstallation..."
+Write-Host "Starting Lazy Polyrepo Express Tools uninstallation..."
 
 # Check if Symbolic Links Directory Exists
-CALL fn-config get RootSymLinksPath
+$LPRE_SYM_PATH = & fn-config get RootSymLinksPath
 if (Test-Path -Path "$LPRE_SYM_PATH" -PathType Container) {
-    echo "$LPRE_SYM_PATH exists."
-    echo "Removing symbolic links for script paths..."
+    Write-Host "$LPRE_SYM_PATH exists."
+    Write-Host "Removing symbolic links for script paths..."
     RemoveSymbolicLink -linkPath $LPRE_SYM_PATH/Root
     RemoveSymbolicLink -linkPath $LPRE_SYM_PATH/Config
     RemoveSymbolicLink -linkPath $LPRE_SYM_PATH/Modules
@@ -32,5 +32,5 @@ if (Test-Path -Path "$LPRE_SYM_PATH" -PathType Container) {
     RemoveSymbolicLink -linkPath $LPRE_SYM_PATH/Tenants
     RemoveSymbolicLink -linkPath $LPRE_SYM_PATH/TenantsDispatch
 } else {
-    echo "$LPRE_SYM_PATH does not exist, nothing to uninstall."
+    Write-Host "$LPRE_SYM_PATH does not exist, nothing to uninstall."
 }

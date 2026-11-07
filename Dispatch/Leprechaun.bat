@@ -24,7 +24,7 @@ IF /I "%Input_Command%"=="exec" (
     SET "Input_Org=%~2"
     SET "Input_Suite=%~3"
     SET "Input_Module=%~4"
-    SET "Input_Action=%~5"
+    SET "Input_Action=%~5"`
     SET "Input_Args="
     SET "Input_Flags="
 
