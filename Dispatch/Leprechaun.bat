@@ -19,7 +19,7 @@
 SETLOCAL EnableExtensions EnableDelayedExpansion
 
 SET "Input_Command=%~1"
-IF /I "%Input_Command%"=="edit" CALL CODE "C:\Environments\Considera\Dev\Leprechaun.Cli.2\" & EXIT /B 0
+IF /I "%Input_Command%"=="edit" CALL CODE "C:\Environments\Considera\Dev\LazyPolyRepoExpress\" & EXIT /B 0
 IF /I "%Input_Command%"=="build" CALL FnExternalBootstrapShortcuts & EXIT /B 0
 ECHO Unknown command: %Input_Command%
 EXIT /B 1
