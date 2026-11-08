@@ -1,4 +1,5 @@
 ProjectIdentifier,ProjectFriendlyIdentifier,ProjectFrameworkIdentifier,ProjectFriendlyName,ProjectType,ProjectDescription,ProjectRootPath,ProjectHomeBranch,IsExternal,NgLaunchScript,NgInstallScript,NgTestScript
 beta,BetaPortal,ng,AngularBetaPortal,Client,Angular Frontend for ConsideraWeb Beta Portal,ConsideraWeb.Ng.BetaPortal,master,false,root-run,root-install,root-test
+music,MusicPortal,ng,AngularMusicPortal,Client,Angular Frontend for ConsideraWeb Music Portal,ConsideraWeb.Ng.MusicPortal,master,false,root-run,root-install,root-test
 cli,Cli,NULL,BatchCli,Misc,Legacy CLI for ConsideraWeb,ConsideraWeb.Cli,master,true,,,
 proxy,Proxy,caddy,BatchProxy,Misc,Proxy Store for ConsideraWeb,ConsideraWeb.Proxy,master,true,,,
