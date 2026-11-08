@@ -1,4 +1,10 @@
 ProjectIdentifier,ModuleIdentifier
-client,app
-client,git
-client,ide
+beta,app
+beta,git
+beta,ide
+music,app
+music,git
+music,ide
+proxy,app
+proxy,git
+proxy,ide
