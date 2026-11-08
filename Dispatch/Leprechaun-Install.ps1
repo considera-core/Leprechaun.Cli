@@ -20,6 +20,10 @@ $userPathBackupPath = Join-Path $symbolicLinkPath ("Backup_User_PATH_{0}.txt" -f
 
 Write-Host "Leprechaun-Install: Installing Leprechaun CLI"
 
+Write-Host "Leprechaun-Install: Building Leprechaun CLI firstly"
+& "$PSScriptRoot\Leprechaun-Build.ps1" -DryRun:$DryRun
+Write-Host "Leprechaun-Install: Build complete"
+
 Write-Host "Leprechaun-Install: Placing symbolic links for Leprechaun CLI in $symbolicLinkPath"
 if (-not (Test-Path $symbolicLinkPath))
 {
@@ -71,6 +75,3 @@ Write-Host "Leprechaun-Install: Verifying test scripts"
 & Leprechaun-Verify-Bat
 & Leprechaun-Verify-Ps1
 Write-Host "Leprechaun-Install: Verification complete"
-Write-Host "Leprechaun-Install: Building Leprechaun CLI"
-& "$PSScriptRoot\Leprechaun-Build.ps1" -DryRun:$DryRun
-Write-Host "Leprechaun-Install: Build complete. Enjoy!"
