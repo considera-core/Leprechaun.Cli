@@ -22,6 +22,11 @@ SET "Output_Cache_%Input_Name%="
 
 :: MAPPING(G: Key, H: Value)
 SET "Local_CachePath=%~dp0..\..\..\..\Cache\Lazy.cache"
+IF NOT EXIST "%Local_CachePath%" (
+    ECHO Leprechaun-FnEtcCacheGet[W]: Cache file not found at %Local_CachePath%, creating one now!
+    MKDIR "%~dp0..\..\..\..\Cache"
+    ECHO. > "%Local_CachePath%"
+)
 FOR /F "tokens=1,2 delims==" %%G IN (%Local_CachePath%) DO (
     IF "%Local_Cache_Key%"=="%%G" (
         CALL SET "Local_Cache_Value=%%H"
@@ -32,4 +37,8 @@ FOR /F "tokens=1,2 delims==" %%G IN (%Local_CachePath%) DO (
 
 IF NOT DEFINED Local_Cache_Value EXIT /B 1
 CALL SET "Output_Cache_%Input_Name%=%%Local_Cache_Value%%"
+
+:: RESET
+FOR /F "delims==" %%V IN ('SET Local_ 2^>NUL') DO SET "%%V="
+
 EXIT /B 0

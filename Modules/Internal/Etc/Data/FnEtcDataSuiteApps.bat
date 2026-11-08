@@ -23,7 +23,7 @@ IF ERRORLEVEL 1 CALL FnEtcLogError %~n0 "Failed to resolve suite %Input_SuiteId%
 :: MAPPING(A: Id, B: Label, C: Description)
 SET "Output_Data_SuiteApps="
 SET "Output_Data_SuiteAppsCount=0"
-SET "Local_DataPath=%~dp0..\..\..\..\Data\Organizations\%Output_Resolved_OrgIdentifier%\Suites\%Output_Resolved_SuiteIdentifier%\Apps.csv"
+SET "Local_DataPath=%~dp0..\..\..\..\Data\Organizations\%Output_Resolved_OrgIdentifier%\%Output_Resolved_SuiteIdentifier%\Apps.csv"
 FOR /F "usebackq skip=1 tokens=1-3 delims=, eol=#" %%A IN ("%Local_DataPath%") DO (
     IF DEFINED Output_Data_SuiteApps CALL SET "Output_Data_SuiteApps=%%Output_Data_SuiteApps%% %%A"
     IF NOT DEFINED Output_Data_SuiteApps SET "Output_Data_SuiteApps=%%A"

@@ -26,7 +26,7 @@ IF NOT DEFINED Output_Resolved_SuiteIdentifier CALL FnEtcResolveSuite "%Input_Or
 :: MAPPING(A: AppId, B: ProjectId)
 SET "Output_Data_ProjectAppDefinitionsProjects="
 SET "Output_Data_ProjectAppDefinitionsProjectsCount=0"
-SET "Local_DataFile=%~dp0..\..\..\..\Data\Organizations\%Output_Resolved_OrgIdentifier%\Suites\%Output_Resolved_SuiteIdentifier%\Apps.Definitions.csv"
+SET "Local_DataFile=%~dp0..\..\..\..\Data\Organizations\%Output_Resolved_OrgIdentifier%\%Output_Resolved_SuiteIdentifier%\Apps.Definitions.csv"
 FOR /F "usebackq skip=1 tokens=1-2 delims=, eol=#" %%A IN ("%Local_DataFile%") DO (
     IF /I "%%A"=="%Input_AppId%" (
         IF DEFINED Output_Data_ProjectAppDefinitionsProjects CALL SET "Output_Data_ProjectAppDefinitionsProjects=%%Output_Data_ProjectAppDefinitionsProjects%% %%B"

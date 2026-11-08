@@ -8,11 +8,12 @@ GOTO Constructor
 
 :Main
     IF /I "%Input_ActionId%"=="run" (
-        CALL leprechaun function app run "%Input_SuiteId%" "%Input_AppId%" %Input_Args%
+        REM CALL leprechaun function app run "%Input_SuiteId%" "%Input_AppId%" %Input_Args%
         IF ERRORLEVEL 1 GOTO Failure
     )
     IF /I "%Input_ActionId%"=="launch" (
-        CALL leprechaun function app launch "%Input_SuiteId%" "%Input_ProjectId%" %Input_Args%
+        CALL FnAppLaunch "%Input_SuiteId%" "%Input_ProjectId%" %Input_Args%
+        REM CALL leprechaun function app launch "%Input_SuiteId%" "%Input_ProjectId%" %Input_Args%
         IF ERRORLEVEL 1 GOTO Failure
     )
     GOTO Destructor

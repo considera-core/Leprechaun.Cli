@@ -32,7 +32,7 @@ CALL FnEtcLogDebug %~n0 "Resolved source organization (Output_Resolved_OrgId): %
 
 :: Verify source
 CALL FnEtcLogDebug %~n0 "Verifying data path..."
-SET "Local_DataFile=%Output_Env_DataPath%\Organizations\%Output_Resolved_OrgIdentifier%\Suites\%Output_Resolved_SuiteIdentifier%\Modules.Definitions.csv"
+SET "Local_DataFile=%Output_Env_DataPath%\Organizations\%Output_Resolved_OrgIdentifier%\%Output_Resolved_SuiteIdentifier%\Modules.Definitions.csv"
 IF NOT EXIST "%Local_DataFile%" (
     CALL FnEtcLogError %~n0 "Modules.Definitions.csv not found at %Local_DataFile%"
     EXIT /B 1
