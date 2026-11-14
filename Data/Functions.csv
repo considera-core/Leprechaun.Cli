@@ -1,0 +1,3 @@
+FunctionName,FunctionModule,FunctionAction,FunctionLevel,FunctionDescription
+FnEditSuite,Edit,NULL,Suite,Opens VS Code for the root directory configured for the given SuiteId
+FnEditOrganization,Edit,NULL,Organization,Opens VS Code for the root directory configured for the given OrgId

@@ -1,8 +1,8 @@
 :: leprechaun <Command> <Arg[]>
-:: ^| leprechaun exec <Module> <Action> <Flag[]> -a <Arg[]> (=> FnEtcDispatch2 global)
-:: ^| leprechaun exec <OrgId> <Module> <Action> <Flag[]> -a <Arg[]> (=> FnEtcDispatch2 organization)
-:: ^| leprechaun exec <OrgId> <SuiteId> <Module> <Action> <Flag[]> -a <Arg[]> (=> FnEtcDispatch2 suite)
-:: ^| leprechaun exec <OrgId> <SuiteId> <ProjectId> <Module> <Action> <Flag[]> -a <Arg[]> (=> FnEtcDispatch2 project)
+:: ^| leprechaun exec <Module> <Action> <Flag[]> -a <Arg[]> (=> FnEtcDispatch global)
+:: ^| leprechaun exec <OrgId> <Module> <Action> <Flag[]> -a <Arg[]> (=> FnEtcDispatch organization)
+:: ^| leprechaun exec <OrgId> <SuiteId> <Module> <Action> <Flag[]> -a <Arg[]> (=> FnEtcDispatch suite)
+:: ^| leprechaun exec <OrgId> <SuiteId> <ProjectId> <Module> <Action> <Flag[]> -a <Arg[]> (=> FnEtcDispatch project)
 :: ^| leprechaun function <Submodule> <Action> -a <Arg[]>
 :: ^| leprechaun edit
 :: ^| leprechaun build
@@ -33,9 +33,9 @@ EXIT /B 1
 ::     SET "Input_Flags="
 :: 
 ::     :: CALL FnEtcFlags -p "!Input_Org!" "!Input_Suite!" "!Input_Module!" "!Input_Action!" -a %*
-::     :: CALL FnEtcDispatch2 global "!Input_Org!" "!Input_Suite!" "!Input_Module!" "!Input_Action!" !Output_FnEtcFlags_Args! !Output_FnEtcFlags_Flags!
+::     :: CALL FnEtcDispatch global "!Input_Org!" "!Input_Suite!" "!Input_Module!" "!Input_Action!" !Output_FnEtcFlags_Args! !Output_FnEtcFlags_Flags!
 ::     CALL FnEtcFlags -p -a %*
-::     CALL FnEtcDispatch2 global !Output_FnEtcFlags_Args! !Output_FnEtcFlags_Flags!
+::     CALL FnEtcDispatch global !Output_FnEtcFlags_Args! !Output_FnEtcFlags_Flags!
 :: ) ELSE IF /I "%Input_Command%"=="function" (
 ::     SET "Input_Submodule=%~2"
 ::     SET "Input_Action=%~3"

@@ -23,7 +23,7 @@ CALL FnEtcResolveSuite "%Input_OrgId%" "%Input_SuiteId%"
 CALL FnEtcResolveProject "%Input_OrgId%" "%Input_SuiteId%" "%Input_ProjectId%"
 IF ERRORLEVEL 1 EXIT /B 1
 
-ECHO Opening code for %Input_OrgId%/%Input_SuiteId%/%Input_ProjectId%
+CALL FnEtcLogInfo %~n0 "Opening code for %Input_OrgId%/%Input_SuiteId%/%Input_ProjectId%"
 CALL code "%Output_Resolved_OrgRootPath%\%Output_Resolved_SuiteRootPath%\%Output_Resolved_ProjectRootPath%"
 IF ERRORLEVEL 1 EXIT /B 1
 

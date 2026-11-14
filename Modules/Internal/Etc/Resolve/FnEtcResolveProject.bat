@@ -50,7 +50,7 @@ IF DEFINED Output_Cache_ProjectId IF DEFINED Output_Cache_ProjectIdentifier IF D
 SETLOCAL EnableDelayedExpansion
 SET "Local_Index=0"
 FOR %%P IN (%Output_Data_Projects%) DO (
-    IF NOT DEFINED Output_Resolved_ProjectId (
+    IF NOT DEFINED Local_ProjectId (
         IF /I NOT "%Input_ProjectId%"=="%%P" (
             SET /A Local_Index+=1
         ) ELSE (
