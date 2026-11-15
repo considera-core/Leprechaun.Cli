@@ -30,7 +30,16 @@ SETLOCAL EnableExtensions EnableDelayedExpansion
     IF ERRORLEVEL 1 GOTO DESTRUCTOR
 
 :FUNCTION
-    CALL Fn%Input_Module%%Input_Action% "%Input_OrgId%" "%Input_SuiteId%" "%Input_ProjectId%" "%Input_KnownArg%" "%Input_KnownArgs%"
+    :: The router already parsed the extra arguments into Output_FnEtcFlags_Args, with each
+    :: token's own quotes kept, so pass them on as separate arguments. Wrapping them in one
+    :: more pair of quotes broke any argument that contains a space ("my message").
+    SET "Local_Lead="
+    IF DEFINED Input_KnownArg SET "Local_Lead="%Input_KnownArg%""
+    IF DEFINED Output_FnEtcFlags_Args (
+        CALL Fn%Input_Module%%Input_Action% "%Input_OrgId%" "%Input_SuiteId%" "%Input_ProjectId%" !Local_Lead! !Output_FnEtcFlags_Args!
+    ) ELSE (
+        CALL Fn%Input_Module%%Input_Action% "%Input_OrgId%" "%Input_SuiteId%" "%Input_ProjectId%" "%Input_KnownArg%" "%Input_KnownArgs%"
+    )
     IF ERRORLEVEL 1 CALL SET "Input_Error=Failed to dispatch project %Input_ProjectId%" & GOTO DESTRUCTOR
 
 :DESTRUCTOR

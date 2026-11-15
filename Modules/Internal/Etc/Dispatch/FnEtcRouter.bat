@@ -47,10 +47,10 @@ SETLOCAL EnableExtensions EnableDelayedExpansion
             CALL FnEtcFlags -p "%Input_OrgId%" "!Input_SuiteId!" "!Input_Module!" "!Input_Action!" "!Input_Arg!" -a %*
             CALL FnEtcResolveProject "%Input_OrgId%" "!Input_SuiteId!" "!Input_Arg!"
             IF NOT DEFINED Output_Resolved_ProjectId (
-                CALL FnEtcDispatchSuite "%Input_OrgId%" "!Input_SuiteId!" "!Input_Module!" "!Input_Action!" "!Input_Arg!" "!Output_FnEtcFlags_Args!"
+                CALL FnEtcDispatchSuite "%Input_OrgId%" "!Input_SuiteId!" "!Input_Module!" "!Input_Action!" "!Input_Arg!"
                 IF ERRORLEVEL 1 SET "Input_Error=Dispatch via suite with arg failed" & GOTO DESTRUCTOR
             ) ELSE (
-                CALL FnEtcDispatchProject "%Input_OrgId%" "!Input_SuiteId!" "!Output_Resolved_ProjectId!" "!Input_Module!" "!Input_Action!" "!Output_FnEtcFlags_Args!"
+                CALL FnEtcDispatchProject "%Input_OrgId%" "!Input_SuiteId!" "!Output_Resolved_ProjectId!" "!Input_Module!" "!Input_Action!"
                 IF ERRORLEVEL 1 SET "Input_Error=Dispatch via project with arg failed" & GOTO DESTRUCTOR
             )
         ) ELSE (

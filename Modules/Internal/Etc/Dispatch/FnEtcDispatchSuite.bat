@@ -32,7 +32,7 @@ SETLOCAL EnableExtensions EnableDelayedExpansion
         CALL SET "Output_Data_Projects=%Output_Cache_Projects%"
     )
     FOR %%P IN (%Output_Data_Projects%) DO (
-        CALL FnEtcDispatchProject "%Input_OrgId%" "%Input_SuiteId%" "%%P" "%Input_Module%" "%Input_Action%" "%Input_KnownArg%" "%Input_KnownArgs%"
+        CALL FnEtcDispatchProject "%Input_OrgId%" "%Input_SuiteId%" "%%P" "%Input_Module%" "%Input_Action%" "%Input_KnownArg%"
         IF ERRORLEVEL 1 CALL SET "Input_Error=Failed to dispatch project %%P" & GOTO DESTRUCTOR
     )
 

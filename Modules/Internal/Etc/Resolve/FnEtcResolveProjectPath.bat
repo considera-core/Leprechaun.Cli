@@ -41,7 +41,7 @@ ENDLOCAL ^
     & SET "Output_Resolved_ProjectPath=%Local_OrgPath%\%Local_SuitePath%\%Local_ProjPath%"
 
 IF NOT EXIST "%Output_Resolved_ProjectPath%" (
-    CALL FnEtcLogError %~n0 "Derived project path does not actually exist!"
+    CALL FnEtcLogError %~n0 "Derived project path does not actually exist: %Output_Resolved_ProjectPath%"
     EXIT /B 1
 )
 
