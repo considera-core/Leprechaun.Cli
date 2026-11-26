@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    fn-nuget-apply : string-replace a single PackageReference's Version
+    FnNugetApply : string-replace a single PackageReference's Version
     attribute in a .csproj, preserving the file's original byte encoding.
 
 .OUTPUTS

@@ -4,3 +4,5 @@ extensions,AngularExtensions,ng,AngularExtensions,Client,Angular Frontend for Co
 music,MusicPortal,ng,AngularMusicPortal,Client,Angular Frontend for ConsideraWeb Music Portal,ConsideraWeb.Ng.MusicPortal,master,false,root-run,root-install,root-test
 cli,Cli,NULL,BatchCli,Misc,Legacy CLI for ConsideraWeb,ConsideraWeb.Cli,master,true,,,
 proxy,Proxy,caddy,BatchProxy,Misc,Proxy Store for ConsideraWeb,ConsideraWeb.Proxy,master,true,,,
+leprechaun-gui,Leprechaun.Gui,ng,LeprechaunGui,Client,Angular GUI for Leprechaun.Cli,../ConsideraCore/Leprechaun.Gui,master,false,root-run,root-install,root-test
+leprechaun-bff,Leprechaun.Bff,dotnet,LeprechaunBff,Server,ASP.NET BFF that runs Leprechaun.Cli commands for the GUI,../ConsideraCore/Leprechaun.Bff,master,false,,,

@@ -39,6 +39,10 @@ IF NOT DEFINED Local_Cache_Value EXIT /B 1
 CALL SET "Output_Cache_%Input_Name%=%%Local_Cache_Value%%"
 
 :: RESET
-FOR /F "delims==" %%V IN ('SET Local_ 2^>NUL') DO SET "%%V="
+:: Only this script's own variables. There is no SETLOCAL here (the output has to reach
+:: the caller), so clearing every Local_* would wipe the caller's locals too.
+SET "Local_Cache_Key="
+SET "Local_Cache_Value="
+SET "Local_CachePath="
 
 EXIT /B 0

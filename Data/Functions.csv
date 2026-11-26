@@ -1,3 +1,88 @@
 FunctionName,FunctionModule,FunctionAction,FunctionLevel,FunctionDescription
-FnEditSuite,Edit,NULL,Suite,Opens VS Code for the root directory configured for the given SuiteId
-FnEditOrganization,Edit,NULL,Organization,Opens VS Code for the root directory configured for the given OrgId
+FnEditOrganization,Edit,Organization,Organization,Opens VS Code for the root directory of the organization
+FnEditSuite,Edit,Suite,Suite,Opens VS Code for the root directory of the suite
+FnAwsProfile,Aws,Profile,Suite,Sets AWS_PROFILE to the suite profile (--prod for production)
+FnAwsSamValidate,Aws,SamValidate,Project,Runs sam validate in projects with a template.yaml
+FnAwsSamBuild,Aws,SamBuild,Project,Runs sam build in projects with a template.yaml
+FnAwsSamDeploy,Aws,SamDeploy,Project,Runs sam deploy in projects with a template.yaml
+FnAwsCloudFrontInvalidate,Aws,CloudFrontInvalidate,Project,Invalidates every path of a CloudFront distribution owned by the project stack
+FnAppLaunch,App,Launch,Project,Launches the project app by framework (--deps launches dependencies first)
+FnGitBranch,Git,Branch,Project,Shows the current branch
+FnGitBranches,Git,Branches,Project,Lists recent branches through the recent-branches git alias
+FnGitCommit,Git,Commit,Project,Stages and commits with a message (--push and --state optional)
+FnGitPush,Git,Push,Project,Not implemented
+FnGitExec,Git,Exec,Project,Runs any git command with protected branch guards
+FnGitFetch,Git,Fetch,Project,Fetches from the remote
+FnGitPull,Git,Pull,Project,Pulls the current branch
+FnGitHome,Git,Home,Project,Switches to the home branch carrying uncommitted changes over
+FnGitStory,Git,Story,Project,Goes home and pulls then switches to or creates the story branch
+FnGitStoryClose,Git,StoryClose,Project,Goes home then deletes the given story branches
+FnGitMergeHomeToProd,Git,MergeHomeToProd,Project,Merges the home branch into production-release with no fast forward
+FnGitMergeProdToHome,Git,MergeProdToHome,Project,Merges production-release into the home branch with no fast forward
+FnGitCountDependabot,Git,CountDependabot,Project,Counts open Dependabot PRs through gh
+FnGitRefreshDependabot,Git,RefreshDependabot,Project,Comments @dependabot recreate on open Dependabot PRs through gh
+FnGitVulns,Git,Vulns,Project,Counts open Dependabot security alerts through gh
+FnIdeCode,Ide,Code,Project,Opens the project in VS Code
+FnIdeRider,Ide,Rider,Project,Opens the project in Rider
+FnIdeWebstorm,Ide,Webstorm,Project,Opens the project in WebStorm
+FnIdeClion,Ide,Clion,Project,Opens the project in CLion
+FnIdeJetbrains,Ide,Jetbrains,Project,Opens WebStorm for Client projects and Rider otherwise (--debug attaches)
+FnIdeRiderDebug,Ide,RiderDebug,Project,Attaches the Rider debugger to the running dotnet process of the project
+FnNgBump,Ng,Bump,Project,Updates Angular CLI and core to a version in Angular projects
+FnNpmAudit,Npm,Audit,Project,Runs npm audit (--fix to fix)
+FnNpmInstall,Npm,Install,Project,Runs npm install
+FnNpmExec,Npm,Exec,Project,Runs any npm command in projects with a package.json
+FnNpmCoverage,Npm,Coverage,Project,Runs tests with coverage and copies the summary to the drive .tmp folder
+FnNpxExec,Npx,Exec,Project,Runs any npx command in projects with a package.json
+FnNpxKnip,Npx,Knip,Project,Runs knip --dependencies and saves the report to the drive .tmp folder
+FnNugetCheck,Nuget,Check,Project,Checks whether a PackageReference has a newer feed version for the branch
+FnNugetBump,Nuget,Bump,Project,Bumps a PackageReference to the newest feed version for the branch
+FnNugetApply,Nuget,Apply,Root,PowerShell helper that rewrites a PackageReference version
+FnNugetResolve,Nuget,Resolve,Root,PowerShell helper that looks up the newest feed version
+FnExternalBootstrapShortcuts,External,BootstrapShortcuts,Root,Regenerates the Bin forwarders
+FnEtcCacheGet,Etc,CacheGet,Root,Reads a cache key
+FnEtcCacheSet,Etc,CacheSet,Root,Writes a cache key
+FnEtcConfigGet,Etc,ConfigGet,Root,Reads a config key
+FnEtcConfigSet,Etc,ConfigSet,Root,Writes a config key
+FnEtcDataFunctions,Etc,DataFunctions,Root,Reads Functions.csv
+FnEtcDataModules,Etc,DataModules,Root,Reads Modules.csv
+FnEtcDataOrganizations,Etc,DataOrganizations,Root,Reads Organizations.csv
+FnEtcDataProjectDependencies,Etc,DataProjectDependencies,Root,Reads Projects.Dependencies.csv of a suite
+FnEtcDataProjectModuleDefinitions,Etc,DataProjectModuleDefinitions,Root,Reads Modules.Definitions.csv of a suite
+FnEtcDataProjects,Etc,DataProjects,Root,Reads Projects.csv of a suite
+FnEtcDataSuites,Etc,DataSuites,Root,Reads Suites.csv of an organization
+FnEtcDebugVarDump,Etc,DebugVarDump,Root,Dumps variables for debugging
+FnEtcDispatch,Etc,Dispatch,Root,Legacy scope dispatcher (unused)
+FnEtcDispatchExternal,Etc,DispatchExternal,Root,Dispatches commands to external projects (unused)
+FnEtcDispatchGlobal,Etc,DispatchGlobal,Root,Legacy global dispatcher (unimplemented)
+FnEtcDispatchInternal,Etc,DispatchInternal,Root,Legacy internal dispatcher (unused)
+FnEtcDispatchOrganization,Etc,DispatchOrganization,Root,Dispatches a function across an organization down to its level
+FnEtcDispatchSuite,Etc,DispatchSuite,Root,Dispatches a function across a suite down to its level
+FnEtcDispatchProject,Etc,DispatchProject,Root,Dispatches a function to one project
+FnEtcRouter,Etc,Router,Root,Parses an organization or suite entry and dispatches by function level
+FnEtcEnvGetCachePath,Etc,EnvGetCachePath,Root,Resolves the cache file path
+FnEtcEnvGetConfigPath,Etc,EnvGetConfigPath,Root,Resolves the config file path
+FnEtcEnvGetDataPath,Etc,EnvGetDataPath,Root,Resolves the Data directory path
+FnEtcEnvGetRootRepoPath,Etc,EnvGetRootRepoPath,Root,Resolves the repository root path
+FnEtcExecFramework,Etc,ExecFramework,Root,Runs the resolved project by framework
+FnEtcFlags,Etc,Flags,Root,Splits arguments from known parameters
+FnEtcFlagsContains,Etc,FlagsContains,Root,Checks whether a flag was passed
+FnEtcHelp,Etc,Help,Root,Not implemented
+FnEtcRunInNewTab,Etc,RunInNewTab,Root,Runs a command in a new Windows Terminal tab
+FnEtcForEachOrganization,Etc,ForEachOrganization,Root,Invokes a function per organization
+FnEtcForEachProject,Etc,ForEachProject,Root,Invokes a function per project
+FnEtcForEachProjectDependency,Etc,ForEachProjectDependency,Root,Invokes a function per project dependency
+FnEtcForEachSuite,Etc,ForEachSuite,Root,Invokes a function per suite
+FnEtcLogDebug,Etc,LogDebug,Root,Writes a debug log line
+FnEtcLogError,Etc,LogError,Root,Writes an error log line
+FnEtcLogInfo,Etc,LogInfo,Root,Writes an info log line
+FnEtcLogRun,Etc,LogRun,Root,Writes a dry run log line
+FnEtcLogWarning,Etc,LogWarning,Root,Writes a warning log line
+FnEtcResolveFunction,Etc,ResolveFunction,Root,Resolves a function and its level from module and action
+FnEtcResolveModule,Etc,ResolveModule,Root,Resolves a module
+FnEtcResolveOrganization,Etc,ResolveOrganization,Root,Resolves an organization
+FnEtcResolveProject,Etc,ResolveProject,Root,Resolves a project
+FnEtcResolveProjectDependencies,Etc,ResolveProjectDependencies,Root,Resolves project dependencies
+FnEtcResolveProjectModuleDefinition,Etc,ResolveProjectModuleDefinition,Root,Resolves whether a project enables a module
+FnEtcResolveProjectPath,Etc,ResolveProjectPath,Root,Builds the absolute project path
+FnEtcResolveSuite,Etc,ResolveSuite,Root,Resolves a suite

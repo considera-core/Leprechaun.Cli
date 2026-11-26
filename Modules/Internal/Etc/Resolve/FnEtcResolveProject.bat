@@ -55,14 +55,14 @@ FOR %%P IN (%Output_Data_Projects%) DO (
             SET /A Local_Index+=1
         ) ELSE (
             CALL SET "Local_ProjectId=%%P"
-            CALL SET "Local_ProjectIdentifier=!Output_Data_Project%Local_Index%Identifier!"
-            CALL SET "Local_ProjectFrameworkId=!Output_Data_Project%Local_Index%FrameworkId!"
-            CALL SET "Local_ProjectName=!Output_Data_Project%Local_Index%Name!"
-            CALL SET "Local_ProjectType=!Output_Data_Project%Local_Index%Type!"
-            CALL SET "Local_ProjectDescription=!Output_Data_Project%Local_Index%Description!"
-            CALL SET "Local_ProjectHomeBranch=!Output_Data_Project%Local_Index%HomeBranch!"
-            CALL SET "Local_ProjectIsExternal=!Output_Data_Project%Local_Index%IsExternal!"
-            CALL SET "Local_ProjectRootPath=!Output_Data_Project%Local_Index%RootPath!"
+            CALL SET "Local_ProjectIdentifier=%%Output_Data_Project!Local_Index!Identifier%%"
+            CALL SET "Local_ProjectFrameworkId=%%Output_Data_Project!Local_Index!FrameworkId%%"
+            CALL SET "Local_ProjectName=%%Output_Data_Project!Local_Index!Name%%"
+            CALL SET "Local_ProjectType=%%Output_Data_Project!Local_Index!Type%%"
+            CALL SET "Local_ProjectDescription=%%Output_Data_Project!Local_Index!Description%%"
+            CALL SET "Local_ProjectHomeBranch=%%Output_Data_Project!Local_Index!HomeBranch%%"
+            CALL SET "Local_ProjectIsExternal=%%Output_Data_Project!Local_Index!IsExternal%%"
+            CALL SET "Local_ProjectRootPath=%%Output_Data_Project!Local_Index!RootPath%%"
         )
     )
 )

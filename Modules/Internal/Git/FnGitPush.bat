@@ -15,4 +15,4 @@ SETLOCAL EnableExtensions EnableDelayedExpansion
 
 :DESTRUCTOR
     IF DEFINED Local_Error CALL FnEtcLogError %~n0 "%Local_Error%"
-    EXIT /B %ERRORLEVEL%
+    EXIT /B %ERRORLEVEL%

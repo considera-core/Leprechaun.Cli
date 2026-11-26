@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    fn-nuget-resolve : find the PackageReference in a .csproj matching a fuzzy
+    FnNugetResolve : find the PackageReference in a .csproj matching a fuzzy
     search term, then look up the latest version on the NuGet feed that ends
     with "-<suffix>" (branch or home tag).
 

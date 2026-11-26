@@ -1,9 +1,9 @@
-:: FnEtcEditSuite <OrgId> <SuiteId>
+:: FnEditSuite <OrgId> <SuiteId>
 
 @ECHO OFF
 SETLOCAL EnableExtensions
 
-:: [Function(FnEtcEditSuite)]
+:: [Function(FnEditSuite)]
 :: [Param(OrgId: string, SuiteId: string)]
 :: [Level(Suite)]
 :: [Description(Opens VS Code for the root directory configured for the given SuiteId)]

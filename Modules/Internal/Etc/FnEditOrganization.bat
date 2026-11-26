@@ -1,9 +1,9 @@
-:: FnEtcEditOrganization <OrgId>
+:: FnEditOrganization <OrgId>
 
 @ECHO OFF
 SETLOCAL EnableExtensions
 
-:: [Function(FnEtcEditOrganization)]
+:: [Function(FnEditOrganization)]
 :: [Param(OrgId: string)]
 :: [Level(Organization)]
 :: [Description(Opens VS Code for the root directory configured for the given OrgId)]

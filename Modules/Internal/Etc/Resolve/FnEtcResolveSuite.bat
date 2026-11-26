@@ -47,10 +47,10 @@ FOR %%S IN (%Output_Data_Suites%) DO (
             SET /A Local_Index+=1
         ) ELSE (
             CALL SET "Local_SuiteId=%%S"
-            CALL SET "Local_SuiteIdentifier=!Output_Data_Suite%Local_Index%Identifier!"
-            CALL SET "Local_SuiteName=!Output_Data_Suite%Local_Index%Name!"
-            CALL SET "Local_SuiteRootPath=!Output_Data_Suite%Local_Index%RootPath!"
-            CALL SET "Local_SuiteActive=!Output_Data_Suite%Local_Index%Active!"
+            CALL SET "Local_SuiteIdentifier=%%Output_Data_Suite!Local_Index!Identifier%%"
+            CALL SET "Local_SuiteName=%%Output_Data_Suite!Local_Index!Name%%"
+            CALL SET "Local_SuiteRootPath=%%Output_Data_Suite!Local_Index!RootPath%%"
+            CALL SET "Local_SuiteActive=%%Output_Data_Suite!Local_Index!Active%%"
             CALL SET "Local_SuiteOrgId=%Output_Resolved_OrgId%"
         )
     )

@@ -37,10 +37,10 @@ FOR %%O IN (%Output_Data_Orgs%) DO (
             SET /A Local_Index+=1
         ) ELSE (
             CALL SET "Local_OrgId=%%O"
-            CALL SET "Local_OrgIdentifier=!Output_Data_Org%Local_Index%Identifier!"
-            CALL SET "Local_OrgName=!Output_Data_Org%Local_Index%Name!"
-            CALL SET "Local_OrgDescription=!Output_Data_Org%Local_Index%Description!"
-            CALL SET "Local_OrgRootPath=!Output_Data_Org%Local_Index%RootPath!"
+            CALL SET "Local_OrgIdentifier=%%Output_Data_Org!Local_Index!Identifier%%"
+            CALL SET "Local_OrgName=%%Output_Data_Org!Local_Index!Name%%"
+            CALL SET "Local_OrgDescription=%%Output_Data_Org!Local_Index!Description%%"
+            CALL SET "Local_OrgRootPath=%%Output_Data_Org!Local_Index!RootPath%%"
         )
     )
 )

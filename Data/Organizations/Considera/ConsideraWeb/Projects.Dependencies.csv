@@ -1,3 +1,5 @@
 ProjectIdentifier,DependencyIdentifier,CheckFirst
 beta,proxy,true
 music,proxy,true
+leprechaun-gui,leprechaun-bff,true
+leprechaun-bff,leprechaun-gui,true

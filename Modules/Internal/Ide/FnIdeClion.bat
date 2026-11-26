@@ -1,14 +1,14 @@
 @ECHO OFF
 SETLOCAL EnableExtensions EnableDelayedExpansion
 
-:: [Function(_Fn)]
+:: [Function(FnIdeClion)]
 :: [Param(OrgId, string, required)]
 :: [Param(SuiteId, string, required)]
 :: [Param(ProjectId, string, required)]
 :: [Param(Flags, list, optional)]
 :: [Flag(--help, Show help information)]
 :: [Flag(--here, Run in the current directory)]
-:: [Level(Suite)]
+:: [Level(Project)]
 
 :CONSTRUCTOR
     CALL FnEtcFlags -p "%~1" "%~2" "%~3" -a %*
@@ -23,8 +23,7 @@ SETLOCAL EnableExtensions EnableDelayedExpansion
 :FUNCTION
     CALL FnEtcFlagsContains --help
     IF ERRORLEVEL 1 (
-        echo 1
-        ECHO "Usage: _Fn <OrgId> <SuiteId> <ProjectId> [Flags]"
+        ECHO "Usage: FnIdeClion <OrgId> <SuiteId> <ProjectId> [Flags]"
         ECHO "Flags:"
         ECHO "  --here      Run in the current directory"
         ECHO "  --help      Show help information"
@@ -34,16 +33,20 @@ SETLOCAL EnableExtensions EnableDelayedExpansion
     CALL FnEtcFlagsContains --here
     IF ERRORLEVEL 1 (
         CALL FnEtcResolveOrganization "%Input_OrgId%"
-        CALL FnEtcResolveSuite "%Input_SuiteId%"
-        CALL FnEtcResolveProject "%Input_ProjectId%"
+        CALL FnEtcResolveSuite "%Input_OrgId%" "%Input_SuiteId%"
+        CALL FnEtcResolveProject "%Input_OrgId%" "%Input_SuiteId%" "%Input_ProjectId%"
+        CALL FnEtcResolveProjectPath
+        IF ERRORLEVEL 1 SET "Local_Error=Failed to resolve project path" & GOTO :DESTRUCTOR
+        WHERE clion64.exe >NUL 2>&1
+        IF ERRORLEVEL 1 SET "Local_Error=clion64.exe not found on PATH. Add CLion's bin directory to PATH and refresh your terminal" & GOTO :DESTRUCTOR
+        CALL FnEtcLogInfo %~n0 "Opening CLion for %Input_SuiteId%/%Input_ProjectId%"
+        START "" clion64.exe "!Output_Resolved_ProjectPath!"
     ) ELSE (
-        CALL FnEtcRunInNewTab "_Fn %Input_OrgId% %Input_SuiteId% %Input_ProjectId% !Output_FnEtcFlags_Args! --here"
+        CALL FnEtcRunInNewTab "FnIdeClion %Input_OrgId% %Input_SuiteId% %Input_ProjectId% !Output_FnEtcFlags_Args! --here"
     )
-
 
 :DESTRUCTOR
     IF DEFINED Local_Error CALL FnEtcLogError %~n0 "%Local_Error%"
-    SET "Local_Profile="
     SET "Input_OrgId="
     SET "Input_SuiteId="
     SET "Input_ProjectId="

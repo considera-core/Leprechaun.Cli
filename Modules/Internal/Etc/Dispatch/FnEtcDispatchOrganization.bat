@@ -1,52 +1,49 @@
-:: FnEtcDispatchOrganization <OrgId> <Command...>
+:: FnEtcDispatchOrganization <OrgId> <FunctionName> <Level>
+:: -- Organization level functions are called once. Suite and Project level functions are
+:: -- dispatched to every active suite of the organization.
+:: -- Arguments for the function are read from Output_FnEtcFlags_Args (set by FnEtcRouter).
 
 @ECHO OFF
-SETLOCAL EnableExtensions
+SETLOCAL EnableExtensions EnableDelayedExpansion
 
 :: [Function(FnEtcDispatchOrganization)]
 :: [Param(OrgId, string, required)]
-:: [Param(Module, string, required)]
-:: [Param(Action, string, optional)]
-:: [Param(KnownArg, string, optional)]
-:: [Param(KnownArgs, string, optional)]
+:: [Param(FunctionName, string, required)]
+:: [Param(Level, string, required)]
 :: [Level(Root)]
 
-:: example: considera edit suite => edit is suite level, so we need to nav to suite and then dispatch the command there instead of trying to resolve projects
 :CONSTRUCTOR
     SET "Input_OrgId=%~1"
-    SET "Input_Module=%~2"
-    SET "Input_Action=%~3"
-    SET "Input_KnownArg=%~4"
-    SET "Input_KnownArgs=%~5"
-    SET "Input_Error="
-    IF NOT DEFINED Input_OrgId SET "Input_Error=Missing required argument <OrgId>" & GOTO DESTRUCTOR
-    IF NOT DEFINED Input_Module SET "Input_Error=Missing required argument <Module>" & GOTO DESTRUCTOR
-    IF ERRORLEVEL 1 GOTO DESTRUCTOR
+    SET "Input_FunctionName=%~2"
+    SET "Input_Level=%~3"
+    SET "Local_Error="
+    SET "Local_Failed="
+    REM Snapshotted, and restored before every call, so a function that writes
+    REM Output_FnEtcFlags_Args without SETLOCAL cannot change the next call's arguments.
+    SET "Local_Args=!Output_FnEtcFlags_Args!"
+    IF NOT DEFINED Input_OrgId SET "Local_Error=Missing required parameter: OrgId" & GOTO :DESTRUCTOR
+    IF NOT DEFINED Input_FunctionName SET "Local_Error=Missing required parameter: FunctionName" & GOTO :DESTRUCTOR
+    IF NOT DEFINED Input_Level SET "Local_Error=Missing required parameter: Level" & GOTO :DESTRUCTOR
 
 :FUNCTION
-    CALL FnEtcDataSuites "%Input_OrgId%"
-    FOR %%S IN (!Output_Data_Suites!) DO (
-        CALL FnEtcDispatchSuite "%Input_OrgId%" "%%S" "%Input_Module%" "%Input_Action%" "%Input_KnownArg%" "%Input_KnownArgs%"
-        IF ERRORLEVEL 1 CALL SET "Input_Error=Failed to dispatch suite %%S" & GOTO DESTRUCTOR
+    IF /I "%Input_Level%"=="Organization" (
+        CALL %Input_FunctionName% "%Input_OrgId%" !Local_Args!
+        GOTO :DESTRUCTOR
     )
-    :: TODO - If %Output_Resolved_FunctionLevel% == "Organization": Dispatch NOW; Else continue drill;
-    :: CALL FnEtcResolveFunction "%Input_Module%" "%Input_Action%" "Organization"
-    :: IF "%Output_Resolved_FunctionLevel%"=="Organization" (
-    ::     CALL Fn!Input_Module!!Input_Action! "%Input_OrgId%" "%Input_KnownArg%" "%Input_KnownArgs%"
-    :: ) ELSE (
-    ::     CALL FnEtcDataSuites "%Input_OrgId%"
-    ::     FOR %%S IN (!Output_Data_Suites!) DO (
-    ::         CALL FnEtcDispatchSuite "%Input_OrgId%" "%%S" "%Input_Module%" "%Input_Action%" "%Input_KnownArg%" "%Input_KnownArgs%"
-    ::         IF ERRORLEVEL 1 CALL SET "Input_Error=Failed to dispatch suite %%S" & GOTO DESTRUCTOR
-    ::     )
-    :: )
+    CALL FnEtcDataSuites "%Input_OrgId%"
+    IF ERRORLEVEL 1 SET "Local_Error=Failed to read the suites of %Input_OrgId%" & GOTO :DESTRUCTOR
+    IF NOT DEFINED Output_Data_SuitesActive SET "Local_Error=No active suites in %Input_OrgId%" & GOTO :DESTRUCTOR
+    SET "Local_Suites=%Output_Data_SuitesActive%"
+    FOR %%S IN (%Local_Suites%) DO (
+        SET "Output_FnEtcFlags_Args=!Local_Args!"
+        CALL FnEtcDispatchSuite "%Input_OrgId%" "%%S" "%Input_FunctionName%" "%Input_Level%"
+        IF ERRORLEVEL 1 SET "Local_Failed=!Local_Failed! %%S"
+    )
+    IF DEFINED Local_Failed SET "Local_Error=Dispatch failed for suites:!Local_Failed!"
 
 :DESTRUCTOR
-    IF DEFINED Input_Error CALL FnEtcLogError %~n0 "%Input_Error%"
-    SET "Input_OrgId="
-    SET "Input_Module="
-    SET "Input_Action="
-    SET "Input_KnownArg="
-    SET "Input_KnownArgs="
-    SET "Input_Error="
-    EXIT /B %ERRORLEVEL%
+    IF DEFINED Local_Error (
+        CALL FnEtcLogError %~n0 "%Local_Error%"
+        EXIT /B 1
+    )
+    EXIT /B 0

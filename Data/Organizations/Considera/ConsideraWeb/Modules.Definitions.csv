@@ -8,3 +8,9 @@ music,ide
 proxy,app
 proxy,git
 proxy,ide
+leprechaun-gui,app
+leprechaun-gui,git
+leprechaun-gui,ide
+leprechaun-bff,app
+leprechaun-bff,git
+leprechaun-bff,ide

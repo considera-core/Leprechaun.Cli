@@ -22,7 +22,6 @@ SETLOCAL EnableExtensions EnableDelayedExpansion
 :FUNCTION
     CALL FnEtcFlagsContains --help
     IF ERRORLEVEL 1 (
-        echo 1
         ECHO "Usage: FnAwsProfile <OrgId> <SuiteId> [Flags]"
         ECHO "Flags:"
         ECHO "  --here      Run in the current directory"
@@ -34,17 +33,17 @@ SETLOCAL EnableExtensions EnableDelayedExpansion
     CALL FnEtcFlagsContains --here
     IF ERRORLEVEL 1 (
         CALL FnEtcResolveOrganization "%Input_OrgId%"
-        CALL FnEtcResolveSuite "%Input_SuiteId%"
+        CALL FnEtcResolveSuite "%Input_OrgId%" "%Input_SuiteId%"
+        IF ERRORLEVEL 1 SET "Local_Error=Failed to resolve suite %Input_SuiteId%" & GOTO :DESTRUCTOR
         CALL FnEtcFlagsContains --prod
-        IF ERRORLEVEL 1 SET "Local_Profile=%Local_Profile%_prod"
-        SETX AWS_PROFILE "%Local_Profile%" >NUL
-        SET "AWS_PROFILE=%Local_Profile%"
-        ECHO [SUCCESS] AWS_PROFILE set to: %Local_Profile%
-        ECHO [NOTE] Environment variable updated for current session and future sessions... Run refreshenv if you can
+        IF ERRORLEVEL 1 SET "Local_Profile=!Local_Profile!_prod"
+        SETX AWS_PROFILE "!Local_Profile!" >NUL
+        SET "AWS_PROFILE=!Local_Profile!"
+        CALL FnEtcLogInfo %~n0 "AWS_PROFILE set to !Local_Profile!"
+        CALL FnEtcLogInfo %~n0 "Updated for future sessions. Open a new terminal, or run refreshenv, to pick it up"
     ) ELSE (
         CALL FnEtcRunInNewTab "FnAwsProfile %Input_OrgId% %Input_SuiteId% !Output_FnEtcFlags_Args! --here"
     )
-
 
 :DESTRUCTOR
     IF DEFINED Local_Error CALL FnEtcLogError %~n0 "%Local_Error%"
